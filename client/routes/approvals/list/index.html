@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Phê duyệt đề xuất chi | Cổng quản lý CLB</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link href="../../../shared/app.css" rel="stylesheet" />
+    <link href="route.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div data-auth-nav></div>
+    <main class="container-fluid approval-page py-4 px-lg-4">
+      <header class="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3 page-header mb-4 pb-2 border-bottom">
+        <div>
+          <span class="code-tag mb-1">QUẢN TRỊ & PHÊ DUYỆT</span>
+          <h1 class="h3 fw-bold mb-1">Phê duyệt đề xuất chi tiêu</h1>
+          <p class="text-muted small mb-0">
+            Xét duyệt giải ngân đối với các đề xuất đã đạt tỷ lệ đồng thuận cao hoặc cần quyết định phân xử của Ban chủ nhiệm.
+          </p>
+        </div>
+      </header>
+
+      <div
+        id="page-message"
+        class="alert d-none mb-4"
+        role="status"
+        aria-live="polite"
+      ></div>
+
+      <section class="ledger-sheet">
+        <div class="ledger-header">
+          <h2 class="ledger-title"><i class="bi bi-shield-check me-2"></i>Danh sách đề xuất chờ phê duyệt</h2>
+          <span class="code-tag">Thẩm quyền: BCN & Thủ quỹ</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table-ledger">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 28%;">Mục đích chi tiêu</th>
+                <th scope="col" class="text-end" style="width: 16%;">Kinh phí dự toán</th>
+                <th scope="col" style="width: 20%;">Người khởi tạo</th>
+                <th scope="col" style="width: 16%;">Kết quả biểu quyết</th>
+                <th scope="col" style="width: 12%;">Trạng thái</th>
+                <th scope="col" class="text-end" style="width: 8%;">Quyết định</th>
+              </tr>
+            </thead>
+            <tbody id="approval-list">
+              <tr>
+                <td colspan="6" class="p-5 text-center text-muted">
+                  <div class="spinner-border spinner-border-sm text-primary me-2" role="status"></div>
+                  <span>Đang tải các đề xuất chờ duyệt...</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../shared/api.js"></script>
+    <script src="../../../shared/auth-nav.js"></script>
+    <script src="route.js"></script>
+  </body>
+</html>

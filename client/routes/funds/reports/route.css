@@ -1,0 +1,9 @@
+/* Funds Reports Route Styles */
+.report-page {
+  max-width: 1100px;
+}
+
+.report-grid dt:last-of-type,
+.report-grid dd:last-of-type {
+  border-bottom: none !important;
+}

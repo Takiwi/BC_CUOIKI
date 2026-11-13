@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+   THE LEDGER DESIGN SYSTEM: DESIGN TOKENS (v2 - Warm Paper)
+   Reference: .taste-skill/palatte.md & .taste-skill/design-system.md
+   ========================================================================== */
+
+:root {
+  /* 1. Neutrals (Warm Paper) */
+  --color-canvas: #f6f4ef;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #efece5;
+  --color-border-subtle: #e3dfd6;
+  --color-border-strong: #8f8a7c;
+
+  --color-text-primary: #1c1b18;
+  --color-text-secondary: #44413a;
+  --color-text-muted: #6b675d;
+
+  /* 2. Brand (Editorial Navy) */
+  --color-brand: #1f3a5f;
+  --color-brand-hover: #152740;
+  --color-brand-active: #0e1b2e;
+  --color-link: #2f5d9e;
+  --color-brand-subtle: #e8eef6;
+
+  /* 3. Semantic (Strictly for Meaning, WCAG AA Measured) */
+  --color-success: #1e6b3a;
+  --color-success-bg: #e9f4ec;
+  --color-success-border: #bcd9c4;
+
+  --color-danger: #a32a2a;
+  --color-danger-bg: #fbecea;
+  --color-danger-border: #efc4bf;
+
+  --color-warning: #7a4f00;
+  --color-warning-bg: #fbf1dc;
+  --color-warning-border: #ebd39a;
+
+  --color-info: #1d5f8a;
+  --color-info-bg: #e6f1f8;
+  --color-info-border: #bbd6e8;
+
+  /* 4. Charts Palette (Color-blind friendly) */
+  --chart-ink: #1f3a5f;
+  --chart-copper: #b8671f;
+  --chart-teal: #2f7f70;
+  --chart-violet: #7c5c99;
+  --chart-gray: #6f7c88;
+
+  /* 5. Governance Vote Bar */
+  --vote-yes: #2e7d4f;
+  --vote-no: #b5382f;
+  --vote-blank: #8f8a7c;
+  --vote-pending: #e3dfd6;
+
+  /* 6. Strict 2-Radius Scale */
+  --radius-sm: 2px;
+  --radius-base: 4px;
+
+  /* 7. Typography & Tabular Numbers */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* 8. Shadows (Minimal / Ledger) */
+  --shadow-none: none;
+  --shadow-modal: 0 4px 12px rgba(28, 27, 24, 0.08);
+
+  /* 9. Transitions */
+  --transition-fast: 0.15s ease-in-out;
+
+  /* ==========================================================================
+     Bootstrap 5 Variables Override
+     ========================================================================== */
+  --bs-body-bg: var(--color-canvas);
+  --bs-body-color: var(--color-text-primary);
+  --bs-body-font-family: var(--font-sans);
+  --bs-secondary-color: var(--color-text-muted);
+  --bs-border-color: var(--color-border-subtle);
+  --bs-border-color-translucent: var(--color-border-subtle);
+  
+  --bs-primary: var(--color-brand);
+  --bs-primary-rgb: 31, 58, 95;
+  --bs-link-color: var(--color-link);
+  --bs-link-hover-color: var(--color-brand-hover);
+
+  --bs-success: var(--color-success);
+  --bs-danger: var(--color-danger);
+  --bs-warning: var(--color-warning);
+  --bs-info: var(--color-info);
+
+  /* Overriding all Bootstrap radius variables to 2-radius scale */
+  --bs-border-radius: var(--radius-base);
+  --bs-border-radius-sm: var(--radius-sm);
+  --bs-border-radius-lg: var(--radius-base);
+  --bs-border-radius-xl: var(--radius-base);
+  --bs-border-radius-2xl: var(--radius-base);
+  --bs-border-radius-pill: var(--radius-base);
+}
+

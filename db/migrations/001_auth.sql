@@ -1,0 +1,29 @@
+CREATE TABLE members (
+  id VARCHAR(36) PRIMARY KEY,
+  full_name NVARCHAR(255) NOT NULL,
+  email NVARCHAR(255) NOT NULL,
+  password_hash NVARCHAR(255) NOT NULL,
+  gender NVARCHAR(50),
+  date_of_birth DATE,
+  role NVARCHAR(50) NOT NULL DEFAULT 'MEMBER'
+    CHECK (role IN ('GUEST', 'MEMBER', 'TREASURER', 'PRESIDENT', 'BOARD')),
+  status NVARCHAR(50) NOT NULL DEFAULT 'PENDING'
+    CHECK (status IN ('PENDING', 'APPROVED', 'REJECTED')),
+  is_active BIT NOT NULL DEFAULT 1,
+  created_at DATETIMEOFFSET NOT NULL DEFAULT SYSUTCDATETIME(),
+  updated_at DATETIMEOFFSET NOT NULL DEFAULT SYSUTCDATETIME()
+);
+
+CREATE UNIQUE INDEX members_email_unique ON members (email);
+
+CREATE TABLE refresh_tokens (
+  id VARCHAR(36) PRIMARY KEY,
+  member_id VARCHAR(36) NOT NULL REFERENCES members(id) ON DELETE NO ACTION,
+  token_hash CHAR(64) NOT NULL UNIQUE,
+  expires_at DATETIMEOFFSET NOT NULL,
+  revoked_at DATETIMEOFFSET,
+  created_at DATETIMEOFFSET NOT NULL DEFAULT SYSUTCDATETIME()
+);
+
+CREATE INDEX refresh_tokens_member_expiry_idx
+  ON refresh_tokens (member_id, expires_at);

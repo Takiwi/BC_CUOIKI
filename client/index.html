@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cổng quản lý CLB</title>
+  </head>
+  <body>
+    <p>Đang chuyển hướng...</p>
+    <script src="shared/api.js"></script>
+    <script>
+      (() => {
+        if (window.ClubApi?.isAuthenticated?.()) {
+          const user = window.ClubApi.getUser();
+          if (user?.role === 'ADMIN') {
+            window.location.replace('/routes/admin/dashboard/index.html');
+            return;
+          } else if (user?.role === 'PRESIDENT') {
+            window.location.replace('/routes/members/approvals/index.html');
+            return;
+          } else if (['BOARD', 'TREASURER'].includes(user?.role)) {
+            window.location.replace('/routes/members/list/index.html');
+            return;
+          } else if (user) {
+            window.location.replace('/routes/members/profile/index.html');
+            return;
+          }
+        }
+        window.location.replace('/routes/auth/login/index.html');
+      })();
+    </script>
+  </body>
+</html>

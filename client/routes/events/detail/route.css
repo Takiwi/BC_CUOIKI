@@ -1,0 +1,11 @@
+.event-page {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.event-stat {
+  border-radius: var(--ledger-radius);
+  background: var(--ledger-canvas);
+  border: 1px solid var(--ledger-border);
+  padding: 1rem 1.25rem;
+}

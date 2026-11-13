@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Hồ sơ cá nhân | Cổng quản lý CLB</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link href="../../../shared/app.css" rel="stylesheet" />
+    <link href="route.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div data-auth-nav></div>
+
+    <main class="container profile-page py-4">
+      <header class="page-header mb-4 pb-2 border-bottom">
+        <span class="code-tag mb-1">TÀI KHOẢN HỘI VIÊN</span>
+        <h1 class="h3 fw-bold mb-1">Hồ sơ cá nhân</h1>
+        <p class="text-muted small mb-0">Xem thông tin định danh, chức vụ công tác và cập nhật thông tin cá nhân</p>
+      </header>
+
+      <!-- Alert Message -->
+      <div class="alert d-none mb-4" id="alert-box" role="alert"></div>
+
+      <!-- Loading State -->
+      <div class="text-center py-5 d-none" id="loading-spinner">
+        <div class="spinner-border spinner-border-sm text-primary" role="status">
+          <span class="visually-hidden">Đang tải...</span>
+        </div>
+        <p class="text-muted small mt-2">Đang tải thông tin hồ sơ thành viên...</p>
+      </div>
+
+      <!-- Form Card -->
+      <div class="ledger-card mb-4" id="profile-card">
+        <div class="ledger-header">
+          <h2 class="ledger-title"><i class="bi bi-person-badge me-2"></i>Thông tin tài khoản</h2>
+          <span class="code-tag">Định danh hội viên</span>
+        </div>
+        <div class="p-4 p-md-5">
+          <form id="profile-form" novalidate>
+            <div class="row g-4">
+              <div class="col-md-6">
+                <label class="form-label fw-bold" for="email">
+                  <i class="bi bi-envelope me-1 text-muted"></i>Địa chỉ Email đăng nhập
+                </label>
+                <input
+                  type="email"
+                  class="form-control bg-light font-monospace text-muted"
+                  id="email"
+                  name="email"
+                  readonly
+                  disabled
+                />
+                <div class="form-text small">Email là mã định danh tài khoản cố định và không thể thay đổi.</div>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-bold">Vai trò & Trạng thái hiện tại</label>
+                <div class="d-flex align-items-center gap-2 pt-2" id="badges-container">
+                  <span class="badge-ledger badge-primary" id="role-badge">-</span>
+                  <span class="badge-ledger badge-success" id="status-badge">-</span>
+                </div>
+              </div>
+
+              <div class="col-12">
+                <hr class="my-1 border-secondary-subtle" />
+              </div>
+
+              <div class="col-12">
+                <label class="form-label fw-bold" for="fullName">
+                  <i class="bi bi-person me-1 text-muted"></i>Họ và tên thành viên <span class="text-danger">*</span>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="fullName"
+                  name="fullName"
+                  maxlength="120"
+                  required
+                />
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-bold" for="gender">
+                  <i class="bi bi-gender-ambiguous me-1 text-muted"></i>Giới tính
+                </label>
+                <select class="form-select" id="gender" name="gender">
+                  <option value="">-- Chưa cập nhật --</option>
+                  <option value="MALE">Nam</option>
+                  <option value="FEMALE">Nữ</option>
+                  <option value="OTHER">Khác</option>
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label fw-bold" for="dateOfBirth">
+                  <i class="bi bi-calendar3 me-1 text-muted"></i>Ngày tháng năm sinh
+                </label>
+                <input
+                  type="date"
+                  class="form-control font-monospace"
+                  id="dateOfBirth"
+                  name="dateOfBirth"
+                />
+              </div>
+
+              <div class="col-12 pt-3 border-top d-flex flex-wrap align-items-center justify-content-between gap-3">
+                <button type="submit" class="btn-ledger btn-ledger-primary px-4 py-2" id="save-btn">
+                  <i class="bi bi-check2-circle me-1"></i>
+                  <span>Lưu thay đổi hồ sơ</span>
+                </button>
+                <button type="button" class="btn-ledger btn-ledger-secondary text-danger btn-sm" id="leave-club-btn">
+                  <i class="bi bi-box-arrow-right me-1"></i>
+                  <span>Rời câu lạc bộ</span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal xác nhận rời câu lạc bộ -->
+    <div class="modal fade" id="leaveModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content ledger-card">
+          <div class="modal-header border-bottom">
+            <h2 class="modal-title h5 fw-bold text-danger"><i class="bi bi-exclamation-triangle me-2"></i>Xác nhận rời câu lạc bộ</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body py-4">
+            Bạn có chắc chắn muốn rời câu lạc bộ không? Tài khoản của bạn sẽ chuyển sang trạng thái <strong>Không hoạt động</strong> và bạn sẽ không thể thực hiện các biểu quyết hoặc giao dịch câu lạc bộ nữa.
+          </div>
+          <div class="modal-footer border-top">
+            <button type="button" class="btn-ledger btn-ledger-secondary btn-sm" data-bs-dismiss="modal">Hủy bỏ</button>
+            <button type="button" class="btn-ledger btn-ledger-secondary text-danger btn-sm" id="confirm-leave-btn">Xác nhận rời CLB</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../../../shared/api.js"></script>
+    <script src="../../../shared/auth-nav.js"></script>
+    <script src="route.js"></script>
+  </body>
+</html>
