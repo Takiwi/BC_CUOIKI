@@ -41,16 +41,18 @@
   function renderNavItems() {
     let html = '';
 
-    // Khối 1: Tổng quan
-    html += `
-      <div class="ledger-nav-group-title">Tổng quan</div>
-      <li class="ledger-nav-item">
-        <a class="ledger-nav-link ${normPath.includes('/routes/admin/dashboard') ? 'active' : ''}" href="/routes/admin/dashboard/index.html">
-          <i class="bi bi-grid-1x2"></i>
-          <span>Bảng điều khiển</span>
-        </a>
-      </li>
-    `;
+    // Khối 1: Tổng quan (Chỉ hiển thị Bảng điều khiển quản trị khi tài khoản có quyền ADMIN)
+    if (user.role === 'ADMIN') {
+      html += `
+        <div class="ledger-nav-group-title">Tổng quan</div>
+        <li class="ledger-nav-item">
+          <a class="ledger-nav-link ${normPath.includes('/routes/admin/dashboard') ? 'active' : ''}" href="/routes/admin/dashboard/index.html">
+            <i class="bi bi-grid-1x2"></i>
+            <span>Bảng điều khiển</span>
+          </a>
+        </li>
+      `;
+    }
 
     // Khối 2: Tài chính & Quỹ
     html += `
@@ -219,7 +221,7 @@
     const brandHref = user.role === 'ADMIN'
       ? '/routes/admin/dashboard/index.html'
       : '/routes/funds/dashboard/index.html';
-    const displayName = user.fullName || user.email || 'Người dùng';
+    const displayName = (user.fullName && user.fullName.trim()) || user.email || 'Người dùng';
     const firstLetter = displayName.charAt(0).toUpperCase();
     const breadcrumb = getBreadcrumbData();
 
@@ -322,6 +324,28 @@
     `;
 
     host.replaceChildren(shellContainer);
+
+    // Tự động làm mới và hiển thị họ tên đầy đủ từ server nếu session hiện tại thiếu fullName
+    if (!user.fullName && window.ClubApi?.request) {
+      window.ClubApi.request('/auth/me').then((res) => {
+        const me = res?.data || res;
+        if (me && me.fullName && me.fullName !== user.fullName) {
+          user.fullName = me.fullName;
+          localStorage.setItem('club.user', JSON.stringify(user));
+          const updatedName = me.fullName;
+          const updatedLetter = updatedName.charAt(0).toUpperCase();
+          shellContainer.querySelectorAll('.ledger-user-avatar').forEach((el) => {
+            el.textContent = updatedLetter;
+          });
+          const sidebarName = shellContainer.querySelector('.ledger-sidebar [title="Cập nhật hồ sơ cá nhân"] .fw-semibold');
+          if (sidebarName) sidebarName.textContent = updatedName;
+          const mobileName = shellContainer.querySelector('#ledgerOffcanvas [title="Cập nhật hồ sơ cá nhân"] .fw-semibold');
+          if (mobileName) mobileName.textContent = updatedName;
+          const chipName = shellContainer.querySelector('.ledger-user-chip span');
+          if (chipName) chipName.textContent = updatedName;
+        }
+      }).catch(() => {});
+    }
 
     // Event listener cho nút đăng xuất
     async function handleLogout(btn) {

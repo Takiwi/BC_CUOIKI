@@ -124,7 +124,7 @@
         return `
           <tr>
             <td>
-              <div class="fw-semibold text-ink">${escapeHtml(app.fullName)}</div>
+              <div class="fw-semibold text-ink">${escapeHtml(app.fullName || app.email)}</div>
               <small class="text-muted">${genderVi ? genderVi + ' ' : ''}${dobText}</small>
             </td>
             <td><span class="font-monospace small">${escapeHtml(app.email)}</span></td>

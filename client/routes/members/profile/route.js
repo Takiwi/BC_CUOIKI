@@ -23,6 +23,7 @@
   const confirmLeaveBtn = document.querySelector('#confirm-leave-btn');
 
   const ROLE_MAP = {
+    ADMIN: 'Quản trị viên',
     PRESIDENT: 'Chủ tịch',
     TREASURER: 'Thủ quỹ',
     BOARD: 'Ban chủ nhiệm',

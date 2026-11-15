@@ -19,6 +19,7 @@
   const confirmStatusBtn = document.querySelector('#confirmStatusBtn');
 
   const ROLE_MAP = {
+    ADMIN: 'Quản trị viên',
     PRESIDENT: 'Chủ tịch',
     TREASURER: 'Thủ quỹ',
     BOARD: 'Ban chủ nhiệm',
@@ -127,7 +128,7 @@
         return `
           <tr>
             <td>
-              <div class="fw-semibold text-ink">${escapeHtml(m.fullName)} ${isMe ? '<span class="badge-ledger badge-primary ms-1 text-nowrap">Bạn</span>' : ''}</div>
+              <div class="fw-semibold text-ink">${escapeHtml(m.fullName || m.email)} ${isMe ? '<span class="badge-ledger badge-primary ms-1 text-nowrap">Bạn</span>' : ''}</div>
               <small class="text-muted">${genderVi}</small>
             </td>
             <td>
